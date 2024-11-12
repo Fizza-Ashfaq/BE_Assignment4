@@ -3,8 +3,11 @@ const mongoose=require('mongoose');
 const {Schema}=require('mongoose');
 const app=express();
 app.use(express.json());
+const dotenv=require('dotenv');
+dotenv.config({ path: './mongoose.env' });
+const url=process.env.URL;
 
-mongoose.connect('mongodb://localhost:27017/books').then(()=>console.log('mongodb'));
+mongoose.connect(url).then(()=>console.log('mongodb'));
 const bookSchema=new Schema({
     title:{type:String, required:true},
     author:{type:String, required:true},
@@ -67,5 +70,5 @@ app.delete('/deletebooks/:id',async(req, res)=>
     res.json(obj);
 })
 
-const port=8000;
+const port=process.env.PORT;
 app.listen(port);
