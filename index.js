@@ -60,6 +60,12 @@ app.put('/updatebooks/:id',async(req, res)=>
     res.json(obj);
 })
 
+app.delete('/deletebooks/:id',async(req, res)=>
+{
+    const id=req.params.id;
+    const obj=await Book.findByIdAndDelete({_id:id});
+    res.json(obj);
+})
 
 const port=8000;
 app.listen(port);
