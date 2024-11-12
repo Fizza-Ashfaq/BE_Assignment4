@@ -52,6 +52,14 @@ app.get("/getbooksbySearch",async(req, res) =>
     
 })
 
+app.put('/updatebooks/:id',async(req, res)=>
+{
+    const id=req.params.id;
+    const data=req.body;
+    const obj=await Book.findByIdAndUpdate({_id:id}, data, {new:true});
+    res.json(obj);
+})
+
 
 const port=8000;
 app.listen(port);
