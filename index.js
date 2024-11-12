@@ -19,6 +19,39 @@ app.post('/books',async(req,res)=>
     const obj=await Book.create(data);
     res.json(obj);
 
+});
+
+app.get('/getbooks',async(req,res)=>
+{
+    const data=await Book.find({});
+    res.json(data);
+});
+
+app.get('/getbooksbyId/:id',async(req,res)=>
+{
+    const id=req.params.id;
+    const data=await Book.findById({_id:id});
+    res.json(data);
+});
+
+app.get("/getbooksbySearch",async(req, res) =>
+{
+    const search=req.query.title ||req.query.author;
+    const obj=await Book.find({$or: [
+        { title: search },
+        { author: search }
+    ]});
+    if(obj.length > 0)
+    {
+        res.json(obj);
+    }
+    else
+    {
+        res.status(404).json({message:'No book found'});
+    }
+    
 })
+
+
 const port=8000;
 app.listen(port);
