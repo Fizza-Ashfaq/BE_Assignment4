@@ -1,5 +1,5 @@
 const book=require('../model/bookModel');
-const addbook=async(require,res)=>{
+const addbook=async(req,res)=>{
     try {
         const data = req.body; 
         const obj = await book.create(data); 

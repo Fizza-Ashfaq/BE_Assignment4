@@ -1,7 +1,10 @@
 const user=require('../model/userModel');
-const adduser=async(require,res)=>{
+const adduser=async(req,res)=>{
     try {
         const data = req.body; 
+        if (data.createdAt) {
+            data.createdAt = new Date(data.createdAt.replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3'));
+          }
         const obj = await user.create(data); 
         res.status(201).send(obj); 
       } catch (error) {
