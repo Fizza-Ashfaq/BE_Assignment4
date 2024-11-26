@@ -6,7 +6,13 @@ const userSchema=new Schema({
     password: { type:String, required:true},
     age: Number, 
     role : { type:String, required:true},
-     createdAt: { type:Date, default:Date.now}
+    createdAt: { type:Date, default:Date.now},
+    books:{
+        type:Schema.Types.ObjectId,
+        ref:"Book",
+        required:false
+    }
+
 }); 
 
 const user=mongoose.model('User',userSchema);

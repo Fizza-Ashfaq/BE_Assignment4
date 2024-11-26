@@ -1,10 +1,7 @@
 const user=require('../model/userModel');
 const adduser=async(req,res)=>{
     try {
-        const data = req.body; 
-        if (data.createdAt) {
-            data.createdAt = new Date(data.createdAt.replace(/(\d+)\/(\d+)\/(\d+)/, '$2/$1/$3'));
-          }
+        const data = req.body;
         const obj = await user.create(data); 
         res.status(201).send(obj); 
       } catch (error) {
@@ -25,7 +22,8 @@ const getuser = async(req, res)=>{
 const getoneuser = async(req, res)=>{
     try{
         const id=req.params.id;
-        const obj=await user.findById(id);
+        // const book=await Book.findById(id);
+        const obj=await user.findById(id).populate('books');
         res.status(200).send(obj);
     }
     catch(error){
